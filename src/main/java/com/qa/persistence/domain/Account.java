@@ -7,64 +7,55 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Account {
 
-	// attributes
-	// This class needs to have:
-	// An ID
-	@Id @GeneratedValue(strategy=GenerationType.AUTO)
+public class Account {
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	// An Account Number
-	@Column(length=100)
-	private String accountNumber = "";
-	// A First Name
+	@Column(length=5)
+	private int accountnumber;
 	@Column(length=50)
-	private String firstName = "";
-	// A Last Name
+	private String firstname;
 	@Column(length=50)
-	private String lastName = "";
+	private String lastname;
 	
-	// constructor
-	public Account() {}
-	public Account(String firstName, String lastName, String accountNumber, int id) {
-		this.id = id;
-		this.accountNumber = accountNumber;
-		this.firstName = firstName;
-		this.lastName = lastName;
+	
+	public Account() {
+	
 	}
-	// behaviours
-	
-	// getters and setters
-	public int getId() {
+
+	public int getID() {
 		return id;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public int getAccountnumber() {
+		return accountnumber;
 	}
 
-	public String getAccountNumber() {
-		return accountNumber;
+	public void setAccountnumber(int accountnumber) {
+		this.accountnumber = accountnumber;
 	}
 
-	public void setAccountNumber(String accountNumber) {
-		this.accountNumber = accountNumber;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public String getLastnane() {
+		return lastname;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public void setLastnane(String lastnane) {
+		this.lastname = lastnane;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+    public Account(String firstname, String lastname) {
+    	this.firstname=firstname;
+    	this.lastname=lastname;
+    	this.accountnumber=this.id;
+    }
 	}
 
-}
+

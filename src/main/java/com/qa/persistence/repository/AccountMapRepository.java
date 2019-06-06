@@ -3,15 +3,19 @@ package com.qa.persistence.repository;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.enterprise.inject.Alternative;
+
 import com.qa.persistence.domain.Account;
 import com.qa.util.JSONUtil;
 
+
+@Alternative
 public class AccountMapRepository implements AccountRepository {
 
-	JSONUtil jsonutil = new JSONUtil();
+	Map<Integer, Account> accountMap = new HashMap<Integer, Account>();
+	JSONUtil j1 = new JSONUtil();
 
-	private Map<Integer, Account> accountMap = new HashMap<Integer, Account>();
-
+	
 	// You must provide concrete implementation for each of these methods
 	// do not change the method signature
 	// THINK - if the parameter is a String, or the return type is a String
@@ -21,51 +25,60 @@ public class AccountMapRepository implements AccountRepository {
 	// You must complete this section using TDD
 	// You can use the suggested tests or build your own.
 
-	public int firstNameAmount(String name) {
-//		int counter = 0;
-//
-//		for (Account account : this.accountMap.values()) {
-//			if (account.getFirstName().equals(name)) {
-//				counter++;
-//			}
-//		}
-//		
-//		return counter;
-		return (int) this.accountMap.values().stream().filter(account -> account.getFirstName().equals(name)).count();
-	}
-
-	public String getAllAccounts() {
-		return jsonutil.getJSONForObject(accountMap);
-	}
-
-	public String getAllAccountsJackson() {
-		return jsonutil.getJSONForObject(accountMap);
-	}
-
-	public String createAccount(String account) {
-		Account acc1 = jsonutil.getObjectForJSON(account, Account.class);
-		accountMap.put(acc1.getId(), acc1);
-
-		return "Created Successfully";
-	}
-
-	public String deleteAccount(int accountNumber) {
-		accountMap.remove(accountNumber);
-		return "Account deleted:" + accountNumber;
-	}
-
-	public String updateAccount(int accountNumber, String account) {
-
-		return "Account updated:" + accountNumber;
-	}
-
-	// getters and setters
 	public Map<Integer, Account> getAccountMap() {
 		return accountMap;
 	}
 
-	public void setAccountMap(Map<Integer, Account> accountMap) {
-		this.accountMap = accountMap;
+	
+	public String getAllAccounts() {
+		return j1.getJSONForObject(accountMap.values());
 	}
 
+	public String createAccount(String Account) {
+		Account a1 = j1.getObjectForJSON(Account, Account.class);
+		accountMap.put(a1.getAccountnumber(), a1);
+		return "Account successfully created";
+	}
+
+	public String deleteAccount(int accountNumber) {
+		accountMap.remove(accountNumber);
+		return "";
+	}
+
+	public String updateAccount(int accountNumber, Account Account) {
+		accountMap.replace(accountNumber, Account);
+		return "";
+	}
+
+	public String updateAccount(int accountNumber, String Account) {
+		Account a2 = j1.getObjectForJSON(Account, Account.class);
+
+		if (accountMap.containsKey(accountNumber)) {
+			accountMap.replace(accountNumber, a2);
+			return "Account added" + j1.getJSONForObject(accountMap.values());
+		}
+
+		return "it hasnt worked";
+	}
+	
+	public int searchList(String input) {
+	return (int) this.accountMap.values().stream().filter(account->account.getFirstname().equals(input)).count();
+	
+//	int counter=0;
+//	for (int i=0; i<=accountMap.size(); i++) {
+//		if(getAccountMap().get(i).getFirstname().equals(Account)) {
+//			counter++;
+//		}
+//	}
+//			return counter;
+
+
+
+}
+
+
+	@Override
+	public String findAccount(int ID) {
+		return null;
+	}
 }
