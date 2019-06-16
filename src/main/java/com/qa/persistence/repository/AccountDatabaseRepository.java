@@ -19,8 +19,7 @@ public class AccountDatabaseRepository implements AccountRepository{
 	
 	@Inject
 	private JSONUtil j1;
-	
-	
+		
     
 	@Override
 	@Transactional(REQUIRED)
